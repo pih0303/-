@@ -11,6 +11,7 @@ interface NewsletterModalProps {
     author: string;
     content: string;
     image: string;
+    link: string;
   } | null;
 }
 
@@ -72,7 +73,15 @@ export default function NewsletterModal({ isOpen, onClose, post }: NewsletterMod
                   {post.content}
                 </div>
                 
-                <div className="mt-16 pt-10 border-t border-brand-olive/10 flex justify-center">
+                <div className="mt-16 pt-10 border-t border-brand-olive/10 flex flex-wrap justify-center gap-4">
+                  <a 
+                    href={post.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="border border-brand-olive text-brand-olive px-10 py-4 rounded-full font-bold hover:bg-brand-olive/5 transition-all"
+                  >
+                    {t("newsletter.view_original")}
+                  </a>
                   <button 
                     onClick={onClose}
                     className="bg-brand-olive text-white px-10 py-4 rounded-full font-bold hover:bg-brand-olive/90 transition-all"

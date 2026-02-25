@@ -54,6 +54,7 @@ const translations: Record<Language, Record<string, string>> = {
     "newsletter.desc": "브릿지 미션의 발걸음과 이주민 친구들의 이야기를 전해드립니다.",
     "newsletter.view_all": "전체 소식 보기",
     "newsletter.read_more": "자세히 보기",
+    "newsletter.view_original": "블로그에서 원문 보기",
     "newsletter.close": "닫기",
     
     "donate.title": "브릿지 미션 설립 파트너 모집",
@@ -122,6 +123,7 @@ const translations: Record<Language, Record<string, string>> = {
     "newsletter.desc": "We share the footsteps of Bridge Mission and the stories of our migrant friends.",
     "newsletter.view_all": "View All News",
     "newsletter.read_more": "Read More",
+    "newsletter.view_original": "View Original on Blog",
     "newsletter.close": "Close",
     
     "donate.title": "Recruiting Founding Partners of Bridge Mission",
