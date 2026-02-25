@@ -105,10 +105,14 @@ const isAdmin = (req: any, res: any, next: any) => {
 // Auth Routes
 app.post("/api/auth/login", (req, res) => {
   const { id, password } = req.body;
-  const adminId = process.env.ADMIN_ID || "admin";
-  const adminPassword = process.env.ADMIN_PASSWORD || "bridge1234";
+  
+  // Use environment variables if set, otherwise use defaults
+  const adminId = (process.env.ADMIN_ID || "admin").trim();
+  const adminPassword = (process.env.ADMIN_PASSWORD || "bridge1234").trim();
 
-  if (id === adminId && password === adminPassword) {
+  console.log(`Login attempt for ID: ${id}`);
+
+  if (id && password && id.trim() === adminId && password.trim() === adminPassword) {
     req.session!.user = {
       email: "admin@bridge.mission",
       name: "Administrator",
