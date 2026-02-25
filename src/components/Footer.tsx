@@ -1,4 +1,4 @@
-import { Mail, MapPin } from "lucide-react";
+import { Mail, MapPin, Instagram } from "lucide-react";
 import { useLanguage } from "../contexts/LanguageContext";
 
 export default function Footer() {
@@ -13,9 +13,19 @@ export default function Footer() {
               <div className="w-8 h-8 bg-brand-olive rounded-full flex items-center justify-center text-white font-serif text-lg">B</div>
               <span className="font-serif text-2xl font-semibold">Bridge Mission</span>
             </div>
-            <p className="text-white/50 max-w-sm leading-relaxed">
+            <p className="text-white/50 max-w-sm leading-relaxed mb-6">
               {t("footer.desc")}
             </p>
+            <div className="flex gap-4">
+              <a 
+                href="https://www.instagram.com/bridge_international_church/" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="w-10 h-10 bg-white/5 rounded-full flex items-center justify-center hover:bg-brand-olive transition-colors"
+              >
+                <Instagram size={20} />
+              </a>
+            </div>
           </div>
           
           <div>
@@ -27,7 +37,21 @@ export default function Footer() {
               </li>
               <li className="flex items-center gap-3">
                 <MapPin size={16} />
-                {t("footer.location")}
+                <div className="flex flex-col gap-1">
+                  <span>{t("footer.location")}</span>
+                  <a 
+                    href="https://map.naver.com/v5/search/%EA%B2%BD%EA%B8%B0%EB%8F%84%20%EA%B9%80%ED%8F%AC%EC%8B%9C%20%EA%B9%80%ED%8F%AC%ED%95%9C%EA%B0%9511%EB%A1%9C%20140%EB%B2%88%EA%B8%B8%20102" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="text-brand-olive font-bold hover:underline"
+                  >
+                    {t("footer.map_link")}
+                  </a>
+                </div>
+              </li>
+              <li className="flex items-center gap-3">
+                <span className="font-bold text-white/40">TEL</span>
+                {t("footer.contact_phone")}
               </li>
             </ul>
           </div>

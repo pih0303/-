@@ -6,9 +6,9 @@
   --font-body: "Inter", sans-serif;
   --font-accent: "Libre Baskerville", serif;
   
-  --color-brand-olive: #5A5A40;
-  --color-brand-cream: #f5f5f0;
-  --color-brand-ink: #1a1a1a;
+  --color-brand-olive: #707050;
+  --color-brand-cream: #fcfcfc;
+  --color-brand-ink: #2d2d2d;
 }
 
 @layer base {

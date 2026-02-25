@@ -15,6 +15,7 @@ export default function Navbar() {
     { name: t("nav.mission"), href: "#mission" },
     { name: t("nav.people"), href: "#people" },
     { name: t("nav.newsletter"), href: "#newsletter" },
+    { name: t("nav.location"), href: "#location" },
     { name: t("nav.donate"), href: "#donate", primary: true },
   ];
 
@@ -25,10 +26,10 @@ export default function Navbar() {
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-brand-cream/80 backdrop-blur-md border-b border-brand-olive/10">
       <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-        <div className="flex items-center gap-2">
+        <a href="#home" className="flex items-center gap-2 hover:opacity-80 transition-opacity">
           <div className="w-10 h-10 bg-brand-olive rounded-full flex items-center justify-center text-white font-serif text-xl">B</div>
           <span className="font-serif text-2xl font-semibold tracking-tight">Bridge Mission</span>
-        </div>
+        </a>
 
         {/* Desktop Nav */}
         <div className="hidden md:flex items-center gap-8">

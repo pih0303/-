@@ -15,6 +15,7 @@ const translations: Record<Language, Record<string, string>> = {
     "nav.mission": "우리가 하는 일",
     "nav.people": "섬기는 사람들",
     "nav.newsletter": "소식지",
+    "nav.location": "찾아오는 길",
     "nav.donate": "후원하기",
     "nav.admin_login": "관리자 로그인",
     "nav.logout": "로그아웃",
@@ -70,13 +71,15 @@ const translations: Record<Language, Record<string, string>> = {
     "footer.rights": "COPYRIGHT ⓒ BRIDGE MISSION. ALL RIGHTS RESERVED.",
     "footer.desc": "브릿지 미션은 그리스도의 사랑으로 이주민들을 섬기며, 모든 민족이 하나 되어 하나님 나라를 확장해가는 선교의 다리가 되고자 합니다.",
     "footer.contact_title": "연락처",
+    "footer.contact_phone": "070-8672-2515",
+    "footer.map_link": "찾아오는 길",
     "footer.info_title": "정보",
     "footer.institute": "브릿지미션 다문화연구소",
     "footer.representative": "대표: 박익휘",
     "footer.biz_number": "사업자 등록번호: 137-82-83255",
     "footer.privacy": "개인정보 처리방침",
     "footer.terms": "이용약관",
-    "footer.location": "대한민국"
+    "footer.location": "경기도 김포시 김포한강11로 140번길 102 1층"
   },
   en: {
     "nav.home": "Home",
@@ -84,6 +87,7 @@ const translations: Record<Language, Record<string, string>> = {
     "nav.mission": "What We Do",
     "nav.people": "People",
     "nav.newsletter": "Newsletter",
+    "nav.location": "Location",
     "nav.donate": "Donate",
     "nav.admin_login": "Admin Login",
     "nav.logout": "Logout",
@@ -139,13 +143,15 @@ const translations: Record<Language, Record<string, string>> = {
     "footer.rights": "COPYRIGHT ⓒ BRIDGE MISSION. ALL RIGHTS RESERVED.",
     "footer.desc": "Bridge Mission serves migrants with the love of Christ and aims to be a bridge of mission where all nations become one and expand the Kingdom of God.",
     "footer.contact_title": "Contact",
+    "footer.contact_phone": "070-8672-2515",
+    "footer.map_link": "How to find us",
     "footer.info_title": "Information",
     "footer.institute": "Bridge Mission Multicultural Institute",
     "footer.representative": "Representative: Ik-hui Park",
     "footer.biz_number": "Business Registration: 137-82-83255",
     "footer.privacy": "Privacy Policy",
     "footer.terms": "Terms of Service",
-    "footer.location": "South Korea"
+    "footer.location": "1F, 102, Gimpohangang 11-ro 140beon-gil, Gimpo-si, Gyeonggi-do, South Korea"
   }
 };
 
