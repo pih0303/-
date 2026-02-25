@@ -52,7 +52,7 @@ if (!fs.existsSync(DB_PATH)) {
         name: "박익휘 (Park Ik-hui)",
         role: "대표 선교사",
         email: "ek@bridgeinternational.church",
-        description: "이주민들에게 '사람이 꽃보다 아름답다'고 말해주고 싶습니다. 고된 노동현장을 살다 방문한 이들에게 따뜻하고 소망이 있는 또다른 고향으로 기억되길 바랍니다.",
+        description: "이주민들에게 “사람이 꽃보다 아름답다”고 말해주고 싶습니다. 고된 노동현장을 살다 방문한 이들에게 낯설고 외로운 타향이 아니라 따뜻하고 소망이 있는 또다른 고향으로 기억되면 좋겠습니다. 중국과 미국 그리고 한국에서 여러 이주민들과 국제시민들을 만나 함께하였고 지난 2021년 귀국하여 김포에 자리 잡았습니다. 영어권 외국인 및 태국 중국등 현지 지도자들을 훈련하고 종종 타문화이해를 위한 교육 및 강의도 개발합니다.",
         details: ["브릿지 이음 국제교회 대표목사", "브릿지 미션 대표", "고신대학교 신학전공", "Biblical (Missio) Theological Seminary M.Div", "Biola University Doctor of Intercultural Studies (Candidate)"],
         social: { facebook: "https://www.facebook.com/ekparkbiblical/", scholar: "https://scholar.google.com/citations?user=ZMvOd9cAAAAJ&hl=ko" },
         image: "https://picsum.photos/seed/park/600/600"
@@ -61,9 +61,25 @@ if (!fs.existsSync(DB_PATH)) {
         id: "devon",
         name: "데븐 (Devon Grobler)",
         role: "국내 이주민 선교사",
-        description: "남아프리카 침례신학대학교에서 신학을 공부하고 아내와 함께 한국으로 와 이주민과 다문화 공동체를 섬기고 있습니다. 언어와 문화의 장벽으로 복음을 접하기 어려운 이웃들에게 복음의 다리가 되는 것이 저의 사명입니다.",
+        description: "남아프리카 침례신학대학교(B.Th.)에서 신학을 공부하며 하나님의 은혜로 훈련을 받았고, 이후 아내와 함께 한국으로 와 이주민과 다문화 공동체를 섬기고 있습니다. 현재 저는 브릿지 미션과 브릿지 이음 국제교회를 통해 한국인과 외국인이 함께 예배하고, 그리스도 안에서 한 가족으로 성장하는 다문화 공동체를 세우는 사역에 헌신하고 있습니다.",
         details: ["남아프리카 침례신학대학교 (B.Th.)", "브릿지 이음 국제교회 협력 사역", "다문화 공동체 세우기 헌신"],
         image: "https://picsum.photos/seed/devon/600/600"
+      },
+      {
+        id: "somwang",
+        name: "소정 & 소망 (Somwang & Kim So-jung)",
+        role: "태국 파송 선교사",
+        description: "태국 현지 콘캔 출신남편과 한국인 아내의 만남으로 이루어진 아름다운 선교에 헌신된 가정입니다. 브릿지 미션과 브릿지 이음교회의 파송을 받아 태국 북동부(이싼)지역의 컨깬에서 복음을 전하고 있으며 미디어 사역과 예배 사역을 섬기고 있습니다.",
+        details: ["태국 북동부(이싼) 컨깬 지역 사역", "미디어 사역 (단편영화, 뮤직비디오 제작)", "예배 및 음악 교육 사역"],
+        image: "https://picsum.photos/seed/somwang/600/600"
+      },
+      {
+        id: "kim",
+        name: "김현주 (Kim Hyun-joo)",
+        role: "이주민 목회 선교사",
+        description: "김현주(공은정) 목사는 “하나님의 사람으로 살아내고, 사람을 살려내라”는 말씀 앞에서 익숙하고 안정적인 길을 내려놓고 새로운 부르심에 응답했습니다. 현재 김포 인천 지역에서 태국·라오스 이주민 공동체를 섬기며 다문화 교회 공동체를 세우는 사역에 헌신하고 있습니다.",
+        details: ["김포/인천 지역 태국·라오스 공동체 사역", "다문화 교회 공동체 세우기 헌신", "삶으로 살아내는 신앙 강조"],
+        image: "https://picsum.photos/seed/kim/600/600"
       }
     ]
   };
