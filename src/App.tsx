@@ -35,34 +35,76 @@ export default function App() {
                     브릿지 미션의 발걸음과 이주민 친구들의 이야기를 전해드립니다.
                   </p>
                 </div>
-                <a href="#" className="text-brand-olive font-bold border-b-2 border-brand-olive pb-1 hover:opacity-70 transition-opacity">
+                <a href="https://blog.naver.com/bridgeinterchurch" target="_blank" rel="noopener noreferrer" className="text-brand-olive font-bold border-b-2 border-brand-olive pb-1 hover:opacity-70 transition-opacity">
                   전체 소식 보기
                 </a>
               </div>
               
-              <div className="grid md:grid-cols-3 gap-8">
+              <div className="grid md:grid-cols-3 gap-x-8 gap-y-12">
                 {[
-                  { date: "2026.02", title: "새로운 시작, 브릿지 미션", author: "박익휘 목사" },
-                  { date: "2026.02", title: "Welcome to Bridge", author: "Devon Grobler" },
-                  { date: "2025.07", title: "여름 사역 보고", author: "박익휘 목사" },
+                  { 
+                    date: "2026.02", 
+                    title: "브릿지 미션 선교사 리트릿", 
+                    author: "박익휘 목사",
+                    image: "https://blogthumb.pstatic.net/MjAyNjAyMDdfMyAg/MDAxNzcwNDMxNzg0MzQz.cYu4JBca8cdTs6xCGmwIL2O5H-ZtXM8uETQty5YuNcYg.TOuuzAxvelj4UnqzksIc35PMaTIDKkXEXMQZKxpscVwg.JPEG/IMG%A3%DF7762.JPG?type=s3",
+                    link: "https://blog.naver.com/bridgeinterchurch/224174974835"
+                  },
+                  { 
+                    date: "2026.02", 
+                    title: "선교적교회운동의 태동과 발전", 
+                    author: "박익휘 목사",
+                    image: "https://blogthumb.pstatic.net/MjAyNjAyMDdfNSAg/MDAxNzcwNDMxNTg5MTUz.yo3mqCxeCKavoFvHz5Igedfc02fcRXqr9cMKGLrRLzsg.PZDv7_GEd91r-PYeue62k1snC-7hytjlisliUPWS2R8g.PNG/IMG%A3%DF7834.PNG?type=s3",
+                    link: "https://blog.naver.com/bridgeinterchurch/224174972119"
+                  },
+                  { 
+                    date: "2025.12", 
+                    title: "추수감사절을 지나며", 
+                    author: "브릿지 미션",
+                    image: "https://picsum.photos/seed/thanksgiving/800/600",
+                    link: "https://blog.naver.com/bridgeinterchurch/224094399218"
+                  },
+                  { 
+                    date: "2025.07", 
+                    title: "2025년 7월 브릿지 미션 소식", 
+                    author: "박익휘 목사",
+                    image: "https://blogthumb.pstatic.net/MjAyNTEwMTRfMjMy/MDAxNzYwNDIzNDU3ODYy.K-fh7y9GvbuqyosfjAiL-CVPQ3CCvXQgH6CjXDIdWiAg.xX17jHejd5GujGx3NfEpORzb4bMlk6geLj5S-7aCve0g.JPEG/IMG_4309.jpg?type=s3",
+                    link: "https://blog.naver.com/bridgeinterchurch/223945151836"
+                  },
+                  { 
+                    date: "2025.07", 
+                    title: "교회같지않은 이음교회?", 
+                    author: "브릿지 미션",
+                    image: "https://picsum.photos/seed/church/800/600",
+                    link: "https://blog.naver.com/bridgeinterchurch/223945158895"
+                  },
+                  { 
+                    date: "2025.05", 
+                    title: "주님의 전도계획 (독서와 나눔)", 
+                    author: "박익휘 목사",
+                    image: "https://picsum.photos/seed/reading/800/600",
+                    link: "https://blog.naver.com/bridgeinterchurch/223882034712"
+                  },
                 ].map((post, i) => (
-                  <motion.div 
+                  <motion.a 
                     key={i}
+                    href={post.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     whileHover={{ y: -10 }}
-                    className="group cursor-pointer"
+                    className="group cursor-pointer block"
                   >
                     <div className="aspect-video overflow-hidden rounded-3xl mb-6">
                       <img 
-                        src={`https://picsum.photos/seed/news${i}/800/600`} 
-                        alt="News" 
+                        src={post.image} 
+                        alt={post.title} 
                         className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                         referrerPolicy="no-referrer"
                       />
                     </div>
                     <span className="text-xs font-bold text-brand-olive tracking-widest uppercase">{post.date}</span>
-                    <h3 className="text-2xl font-serif mt-2 mb-4 group-hover:text-brand-olive transition-colors">{post.title}</h3>
+                    <h3 className="text-xl font-serif mt-2 mb-4 group-hover:text-brand-olive transition-colors line-clamp-2 h-14">{post.title}</h3>
                     <p className="text-sm text-brand-ink/50">By {post.author}</p>
-                  </motion.div>
+                  </motion.a>
                 ))}
               </div>
             </div>
