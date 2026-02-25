@@ -3,10 +3,12 @@ import { Mail, Facebook, Globe, Camera, RotateCcw } from "lucide-react";
 import { useState, useEffect } from "react";
 import { initialPeople, Person } from "../data/people";
 import { useAuth } from "../contexts/AuthContext";
+import { useLanguage } from "../contexts/LanguageContext";
 
 export default function People() {
   const [people, setPeople] = useState<Person[]>(initialPeople);
   const { user } = useAuth();
+  const { t } = useLanguage();
 
   // Load from localStorage on mount
   useEffect(() => {
@@ -49,10 +51,9 @@ export default function People() {
       <div className="max-w-7xl mx-auto px-6">
         <div className="flex flex-col md:flex-row justify-between items-end gap-6 mb-20">
           <div className="max-w-3xl">
-            <h2 className="text-5xl font-serif mb-6">섬기는 사람들</h2>
+            <h2 className="text-5xl font-serif mb-6">{t("people.title")}</h2>
             <p className="text-brand-ink/60 text-lg">
-              브릿지 미션은 각자의 자리에서 이주민들을 사랑으로 섬기는 
-              헌신된 사역자들과 함께합니다.
+              {t("people.desc")}
             </p>
           </div>
           {user?.isAdmin && (
@@ -60,7 +61,7 @@ export default function People() {
               onClick={handleReset}
               className="flex items-center gap-2 text-xs font-bold text-brand-olive hover:opacity-70 transition-opacity uppercase tracking-widest"
             >
-              <RotateCcw size={14} /> 사진 초기화
+              <RotateCcw size={14} /> {t("people.reset")}
             </button>
           )}
         </div>
@@ -86,7 +87,7 @@ export default function People() {
                     onClick={() => handleUpdateImage(person.id)}
                     className="absolute inset-0 flex items-center justify-center bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity rounded-[32px] text-white gap-2 text-sm font-medium"
                   >
-                    <Camera size={20} /> 사진 수정
+                    <Camera size={20} /> {t("people.edit")}
                   </button>
                 )}
               </div>

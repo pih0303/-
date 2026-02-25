@@ -1,20 +1,26 @@
 import { motion } from "motion/react";
-import { Menu, X, LogIn, LogOut, User as UserIcon } from "lucide-react";
+import { Menu, X, LogIn, LogOut, User as UserIcon, Languages } from "lucide-react";
 import { useState } from "react";
 import { useAuth } from "../contexts/AuthContext";
+import { useLanguage } from "../contexts/LanguageContext";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const { user, login, logout } = useAuth();
+  const { language, setLanguage, t } = useLanguage();
 
   const navItems = [
-    { name: "홈", href: "#home" },
-    { name: "브릿지미션 소개", href: "#about" },
-    { name: "우리가 하는 일", href: "#mission" },
-    { name: "섬기는 사람들", href: "#people" },
-    { name: "소식지", href: "#newsletter" },
-    { name: "후원하기", href: "#donate", primary: true },
+    { name: t("nav.home"), href: "#home" },
+    { name: t("nav.about"), href: "#about" },
+    { name: t("nav.mission"), href: "#mission" },
+    { name: t("nav.people"), href: "#people" },
+    { name: t("nav.newsletter"), href: "#newsletter" },
+    { name: t("nav.donate"), href: "#donate", primary: true },
   ];
+
+  const toggleLanguage = () => {
+    setLanguage(language === "ko" ? "en" : "ko");
+  };
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-brand-cream/80 backdrop-blur-md border-b border-brand-olive/10">
@@ -40,6 +46,14 @@ export default function Navbar() {
             </a>
           ))}
           
+          <button 
+            onClick={toggleLanguage}
+            className="flex items-center gap-1 text-xs font-bold text-brand-olive hover:opacity-70 transition-opacity uppercase tracking-widest"
+          >
+            <Languages size={16} />
+            {language === "ko" ? "EN" : "KO"}
+          </button>
+
           <div className="h-6 w-px bg-brand-olive/20 mx-2" />
           
           {user ? (
@@ -57,7 +71,7 @@ export default function Navbar() {
               <button 
                 onClick={logout}
                 className="text-brand-ink/50 hover:text-brand-olive transition-colors"
-                title="로그아웃"
+                title={t("nav.logout")}
               >
                 <LogOut size={18} />
               </button>
@@ -68,13 +82,19 @@ export default function Navbar() {
               className="flex items-center gap-2 text-sm font-medium text-brand-ink/70 hover:text-brand-olive transition-colors"
             >
               <LogIn size={18} />
-              관리자 로그인
+              {t("nav.admin_login")}
             </button>
           )}
         </div>
 
         {/* Mobile Toggle */}
         <div className="flex items-center gap-4 md:hidden">
+          <button 
+            onClick={toggleLanguage}
+            className="text-brand-olive font-bold text-sm"
+          >
+            {language === "ko" ? "EN" : "KO"}
+          </button>
           {user && (
              <img src={user.picture} alt={user.name} className="w-8 h-8 rounded-full border border-brand-olive/20" />
           )}
@@ -103,20 +123,26 @@ export default function Navbar() {
               {item.name}
             </a>
           ))}
-          <div className="border-t border-brand-olive/10 pt-6">
+          <div className="border-t border-brand-olive/10 pt-6 flex flex-col gap-6">
+            <button 
+              onClick={() => { toggleLanguage(); setIsOpen(false); }}
+              className="flex items-center gap-2 text-lg font-serif text-brand-ink/80"
+            >
+              <Languages size={20} /> {language === "ko" ? "English" : "한국어"}
+            </button>
             {user ? (
               <button 
                 onClick={() => { logout(); setIsOpen(false); }}
                 className="flex items-center gap-2 text-lg font-serif text-brand-ink/80"
               >
-                <LogOut size={20} /> 로그아웃
+                <LogOut size={20} /> {t("nav.logout")}
               </button>
             ) : (
               <button 
                 onClick={() => { login(); setIsOpen(false); }}
                 className="flex items-center gap-2 text-lg font-serif text-brand-ink/80"
               >
-                <LogIn size={20} /> 관리자 로그인
+                <LogIn size={20} /> {t("nav.admin_login")}
               </button>
             )}
           </div>
