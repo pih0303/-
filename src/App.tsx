@@ -18,38 +18,65 @@ import { Plus, Trash2 } from "lucide-react";
 export default function App() {
   const { t } = useLanguage();
   const { user } = useAuth();
-  const [posts, setPosts] = useState<Post[]>(initialPosts);
+  const [posts, setPosts] = useState<Post[]>([]);
   const [selectedPost, setSelectedPost] = useState<Post | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isEditorOpen, setIsEditorOpen] = useState(false);
+  const [editingPost, setEditingPost] = useState<Post | null>(null);
 
-  // Load posts from localStorage on mount
-  useEffect(() => {
-    const saved = localStorage.getItem("bridge_mission_posts");
-    if (saved) {
-      try {
-        setPosts(JSON.parse(saved));
-      } catch (e) {
-        console.error("Failed to load posts", e);
-      }
+  const fetchPosts = async () => {
+    try {
+      const res = await fetch("/api/posts");
+      const data = await res.json();
+      setPosts(data);
+    } catch (error) {
+      console.error("Failed to fetch posts", error);
     }
+  };
+
+  useEffect(() => {
+    fetchPosts();
   }, []);
 
-  const savePosts = (newPosts: Post[]) => {
-    setPosts(newPosts);
-    localStorage.setItem("bridge_mission_posts", JSON.stringify(newPosts));
+  const handleSavePost = async (postData: Post) => {
+    try {
+      const url = editingPost ? `/api/posts/${(editingPost as any).id}` : "/api/posts";
+      const method = editingPost ? "PUT" : "POST";
+      
+      const res = await fetch(url, {
+        method,
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(postData),
+      });
+      
+      if (res.ok) {
+        fetchPosts();
+        setIsEditorOpen(false);
+        setEditingPost(null);
+      }
+    } catch (error) {
+      console.error("Failed to save post", error);
+    }
   };
 
-  const handleAddPost = (newPost: Post) => {
-    savePosts([newPost, ...posts]);
-  };
-
-  const handleDeletePost = (e: React.MouseEvent, index: number) => {
+  const handleDeletePost = async (e: React.MouseEvent, id: string) => {
     e.stopPropagation();
     if (confirm("이 소식을 삭제하시겠습니까?")) {
-      const newPosts = posts.filter((_, i) => i !== index);
-      savePosts(newPosts);
+      try {
+        const res = await fetch(`/api/posts/${id}`, { method: "DELETE" });
+        if (res.ok) {
+          fetchPosts();
+        }
+      } catch (error) {
+        console.error("Failed to delete post", error);
+      }
     }
+  };
+
+  const handleEditPost = (e: React.MouseEvent, post: Post) => {
+    e.stopPropagation();
+    setEditingPost(post);
+    setIsEditorOpen(true);
   };
 
   const handleOpenPost = (post: Post) => {
@@ -104,20 +131,28 @@ export default function App() {
               </div>
               
               <div className="grid md:grid-cols-3 gap-x-8 gap-y-12">
-                {posts.map((post, i) => (
+                {posts.map((post) => (
                   <motion.div 
-                    key={i}
+                    key={(post as any).id}
                     onClick={() => handleOpenPost(post)}
                     whileHover={{ y: -10 }}
                     className="group cursor-pointer block relative"
                   >
                     {user?.isAdmin && (
-                      <button 
-                        onClick={(e) => handleDeletePost(e, i)}
-                        className="absolute top-4 right-4 z-10 w-10 h-10 bg-red-500 text-white rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity shadow-lg hover:bg-red-600"
-                      >
-                        <Trash2 size={18} />
-                      </button>
+                      <div className="absolute top-4 right-4 z-10 flex gap-2">
+                        <button 
+                          onClick={(e) => handleEditPost(e, post)}
+                          className="w-10 h-10 bg-brand-olive text-white rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity shadow-lg hover:bg-brand-olive/90"
+                        >
+                          <Plus size={18} className="rotate-45" />
+                        </button>
+                        <button 
+                          onClick={(e) => handleDeletePost(e, (post as any).id)}
+                          className="w-10 h-10 bg-red-500 text-white rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity shadow-lg hover:bg-red-600"
+                        >
+                          <Trash2 size={18} />
+                        </button>
+                      </div>
                     )}
                     <div className="aspect-video overflow-hidden rounded-3xl mb-6">
                       <img 
@@ -151,8 +186,12 @@ export default function App() {
 
       <NewsletterEditor 
         isOpen={isEditorOpen}
-        onClose={() => setIsEditorOpen(false)}
-        onSave={handleAddPost}
+        onClose={() => {
+          setIsEditorOpen(false);
+          setEditingPost(null);
+        }}
+        onSave={handleSavePost}
+        initialData={editingPost}
       />
     </div>
   );

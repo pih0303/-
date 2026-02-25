@@ -6,43 +6,59 @@ import { useAuth } from "../contexts/AuthContext";
 import { useLanguage } from "../contexts/LanguageContext";
 
 export default function People() {
-  const [people, setPeople] = useState<Person[]>(initialPeople);
+  const [people, setPeople] = useState<Person[]>([]);
   const { user } = useAuth();
   const { t } = useLanguage();
 
-  // Load from localStorage on mount
-  useEffect(() => {
-    const saved = localStorage.getItem("bridge_mission_people");
-    if (saved) {
-      try {
-        setPeople(JSON.parse(saved));
-      } catch (e) {
-        console.error("Failed to load people data", e);
-      }
+  const fetchPeople = async () => {
+    try {
+      const res = await fetch("/api/people");
+      const data = await res.json();
+      setPeople(data);
+    } catch (error) {
+      console.error("Failed to fetch people", error);
     }
-  }, []);
-
-  // Save to localStorage when people state changes
-  const savePeople = (newPeople: Person[]) => {
-    setPeople(newPeople);
-    localStorage.setItem("bridge_mission_people", JSON.stringify(newPeople));
   };
 
-  const handleUpdateImage = (id: string) => {
+  useEffect(() => {
+    fetchPeople();
+  }, []);
+
+  const handleUpdateImage = async (id: string) => {
     const currentPerson = people.find(p => p.id === id);
     const newUrl = prompt("새로운 이미지 URL을 입력해주세요:", currentPerson?.image);
     
     if (newUrl && newUrl !== currentPerson?.image) {
-      const newPeople = people.map(p => 
-        p.id === id ? { ...p, image: newUrl } : p
-      );
-      savePeople(newPeople);
+      try {
+        const res = await fetch(`/api/people/${id}`, {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ image: newUrl }),
+        });
+        if (res.ok) {
+          fetchPeople();
+        }
+      } catch (error) {
+        console.error("Failed to update image", error);
+      }
     }
   };
 
-  const handleReset = () => {
+  const handleReset = async () => {
     if (confirm("모든 사진을 초기 상태로 되돌리시겠습니까?")) {
-      savePeople(initialPeople);
+      // For simplicity, we'll just reset them to initialPeople values via API
+      try {
+        for (const person of initialPeople) {
+          await fetch(`/api/people/${person.id}`, {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ image: person.image }),
+          });
+        }
+        fetchPeople();
+      } catch (error) {
+        console.error("Failed to reset people images", error);
+      }
     }
   };
 

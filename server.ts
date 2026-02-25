@@ -5,11 +5,70 @@ import cookieSession from "cookie-session";
 import dotenv from "dotenv";
 import path from "path";
 import { fileURLToPath } from "url";
+import fs from "fs";
 
 dotenv.config();
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+
+const DB_PATH = path.join(__dirname, "db.json");
+
+// Initialize DB if not exists
+if (!fs.existsSync(DB_PATH)) {
+  const initialData = {
+    posts: [
+      { 
+        id: "1",
+        date: "2026.02", 
+        title: "브릿지 미션 선교사 리트릿", 
+        author: "박익휘 목사",
+        image: "https://blogthumb.pstatic.net/MjAyNjAyMDdfMyAg/MDAxNzcwNDMxNzg0MzQz.cYu4JBca8cdTs6xCGmwIL2O5H-ZtXM8uETQty5YuNcYg.TOuuzAxvelj4UnqzksIc35PMaTIDKkXEXMQZKxpscVwg.JPEG/IMG%A3%DF7762.JPG?type=s3",
+        link: "https://blog.naver.com/bridgeinterchurch/224174974835",
+        content: "김포에서 이주민 선교와 목회를 섬기는 4가정이 함께 속초–양양으로 가족 리트릿을 다녀왔다. 같은 비전, 한 마음으로 모이니 특별한 계획 없어도 서로 나눌것이 많다!\n\n1박으로 짧게 다녀왔는데 새벽까지 이주민의 삶, 타문화 선교로의 부르심, 다문화 목회 등 여럿 포럼의 주제가 올라온다! 서로의 존재만으로도 깊은 배움이 있다!\n\n하나님께서 함께하시는 이주민 사역은 결코 외로운 길이 아님을 확인한다! 함께 걷는 동역자들이 있음에 감사하며, 앞으로의 사역을 위해 기도를 부탁드린다."
+      },
+      { 
+        id: "2",
+        date: "2026.02", 
+        title: "선교적교회운동의 태동과 발전", 
+        author: "박익휘 목사",
+        image: "https://blogthumb.pstatic.net/MjAyNjAyMDdfNSAg/MDAxNzcwNDMxNTg5MTUz.yo3mqCxeCKavoFvHz5Igedfc02fcRXqr9cMKGLrRLzsg.PZDv7_GEd91r-PYeue62k1snC-7hytjlisliUPWS2R8g.PNG/IMG%A3%DF7834.PNG?type=s3",
+        link: "https://blog.naver.com/bridgeinterchurch/224174972119",
+        content: "서울시민교회 디모데 청년부 특강 자료입니다. 선교적 교회 운동의 역사적 배경과 현대적 의미를 탐구하며, 교회가 어떻게 세상 속에서 하나님의 선교에 참여할 수 있는지에 대해 나누었습니다.\n\n선교적 교회(Missional Church)란 단순히 선교를 많이 하는 교회가 아니라, 교회의 본질 자체가 선교적임을 깨닫고 삶의 모든 영역에서 하나님의 통치를 드러내는 공동체입니다. 청년들이 각자의 삶의 현장에서 선교사적 삶을 살아내기를 도전하는 시간이었습니다."
+      },
+      { 
+        id: "3",
+        date: "2025.12", 
+        title: "추수감사절을 지나며", 
+        author: "브릿지 미션",
+        image: "https://picsum.photos/seed/thanksgiving/800/600",
+        link: "https://blog.naver.com/bridgeinterchurch/224094399218",
+        content: "지나보니 모든것이 은혜이고 감사이지만, 그 과정은 분명 많은 것이 힘들었고 불안했다. 무엇보다 부모는 개척을 결정했지만, 태어나 자기 세상의 전부나 다름없던 교회와 갑자기 단절된 큰 아이는 꽤나 큰 심리적 충격을 겪었던 것 같다.\n\n어제는 추수감사절을 맞아 우리에게 행하신 하나님께 감사하고, 함께 포트럭 파티를 했다. 각자가 음식을 싸와서 먹었는데, 부활절때 보다 더 풍성한 음식 리스트에 감사와 감동!!\n\n이주민 친구들과 함께 나누는 식탁 교제 속에서 하나님 나라의 풍성함을 맛봅니다. 우리의 작은 나눔이 그들에게 따뜻한 위로가 되길 소망합니다."
+      }
+    ],
+    people: [
+      {
+        id: "park",
+        name: "박익휘 (Park Ik-hui)",
+        role: "대표 선교사",
+        email: "ek@bridgeinternational.church",
+        description: "이주민들에게 '사람이 꽃보다 아름답다'고 말해주고 싶습니다. 고된 노동현장을 살다 방문한 이들에게 따뜻하고 소망이 있는 또다른 고향으로 기억되길 바랍니다.",
+        details: ["브릿지 이음 국제교회 대표목사", "브릿지 미션 대표", "고신대학교 신학전공", "Biblical (Missio) Theological Seminary M.Div", "Biola University Doctor of Intercultural Studies (Candidate)"],
+        social: { facebook: "https://www.facebook.com/ekparkbiblical/", scholar: "https://scholar.google.com/citations?user=ZMvOd9cAAAAJ&hl=ko" },
+        image: "https://picsum.photos/seed/park/600/600"
+      },
+      {
+        id: "devon",
+        name: "데븐 (Devon Grobler)",
+        role: "국내 이주민 선교사",
+        description: "남아프리카 침례신학대학교에서 신학을 공부하고 아내와 함께 한국으로 와 이주민과 다문화 공동체를 섬기고 있습니다. 언어와 문화의 장벽으로 복음을 접하기 어려운 이웃들에게 복음의 다리가 되는 것이 저의 사명입니다.",
+        details: ["남아프리카 침례신학대학교 (B.Th.)", "브릿지 이음 국제교회 협력 사역", "다문화 공동체 세우기 헌신"],
+        image: "https://picsum.photos/seed/devon/600/600"
+      }
+    ]
+  };
+  fs.writeFileSync(DB_PATH, JSON.stringify(initialData, null, 2));
+}
 
 const app = express();
 const PORT = 3000;
@@ -30,7 +89,38 @@ app.use(
   })
 );
 
+// Helper to read/write DB
+const readDB = () => JSON.parse(fs.readFileSync(DB_PATH, "utf-8"));
+const writeDB = (data: any) => fs.writeFileSync(DB_PATH, JSON.stringify(data, null, 2));
+
+// Admin Middleware
+const isAdmin = (req: any, res: any, next: any) => {
+  if (req.session?.user?.isAdmin) {
+    next();
+  } else {
+    res.status(403).json({ error: "Unauthorized" });
+  }
+};
+
 // Auth Routes
+app.post("/api/auth/login", (req, res) => {
+  const { id, password } = req.body;
+  const adminId = process.env.ADMIN_ID || "admin";
+  const adminPassword = process.env.ADMIN_PASSWORD || "bridge1234";
+
+  if (id === adminId && password === adminPassword) {
+    req.session!.user = {
+      email: "admin@bridge.mission",
+      name: "Administrator",
+      picture: "",
+      isAdmin: true,
+    };
+    res.json({ user: req.session!.user });
+  } else {
+    res.status(401).json({ error: "Invalid credentials" });
+  }
+});
+
 app.get("/api/auth/url", (req, res) => {
   const redirectUri = `${process.env.APP_URL}/auth/callback`;
   const url = client.generateAuthUrl({
@@ -58,13 +148,12 @@ app.get("/auth/callback", async (req, res) => {
     
     const payload = ticket.getPayload();
     if (payload) {
-      // Check if this is the admin email
-      const isAdmin = payload.email === process.env.ADMIN_EMAIL;
+      const isAdminUser = payload.email === process.env.ADMIN_EMAIL;
       req.session!.user = {
         email: payload.email,
         name: payload.name,
         picture: payload.picture,
-        isAdmin: isAdmin,
+        isAdmin: isAdminUser,
       };
     }
 
@@ -96,6 +185,56 @@ app.get("/api/auth/me", (req, res) => {
 app.post("/api/auth/logout", (req, res) => {
   req.session = null;
   res.json({ success: true });
+});
+
+// Data Routes
+app.get("/api/posts", (req, res) => {
+  const db = readDB();
+  res.json(db.posts);
+});
+
+app.post("/api/posts", isAdmin, (req, res) => {
+  const db = readDB();
+  const newPost = { ...req.body, id: Date.now().toString() };
+  db.posts.unshift(newPost);
+  writeDB(db);
+  res.json(newPost);
+});
+
+app.put("/api/posts/:id", isAdmin, (req, res) => {
+  const db = readDB();
+  const index = db.posts.findIndex((p: any) => p.id === req.params.id);
+  if (index !== -1) {
+    db.posts[index] = { ...db.posts[index], ...req.body };
+    writeDB(db);
+    res.json(db.posts[index]);
+  } else {
+    res.status(404).json({ error: "Post not found" });
+  }
+});
+
+app.delete("/api/posts/:id", isAdmin, (req, res) => {
+  const db = readDB();
+  db.posts = db.posts.filter((p: any) => p.id !== req.params.id);
+  writeDB(db);
+  res.json({ success: true });
+});
+
+app.get("/api/people", (req, res) => {
+  const db = readDB();
+  res.json(db.people);
+});
+
+app.put("/api/people/:id", isAdmin, (req, res) => {
+  const db = readDB();
+  const index = db.people.findIndex((p: any) => p.id === req.params.id);
+  if (index !== -1) {
+    db.people[index] = { ...db.people[index], ...req.body };
+    writeDB(db);
+    res.json(db.people[index]);
+  } else {
+    res.status(404).json({ error: "Person not found" });
+  }
 });
 
 // Vite middleware for development

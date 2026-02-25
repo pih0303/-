@@ -11,6 +11,7 @@ interface AuthContextType {
   user: User | null;
   loading: boolean;
   login: () => Promise<void>;
+  idLogin: (id: string, password: string) => Promise<void>;
   logout: () => Promise<void>;
 }
 
@@ -51,6 +52,25 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       window.open(url, "google_oauth", "width=500,height=600");
     } catch (error) {
       console.error("Login failed", error);
+    }
+  };
+
+  const idLogin = async (id: string, password: string) => {
+    try {
+      const res = await fetch("/api/auth/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ id, password }),
+      });
+      if (res.ok) {
+        const data = await res.json();
+        setUser(data.user);
+      } else {
+        throw new Error("Invalid credentials");
+      }
+    } catch (error) {
+      console.error("ID Login failed", error);
+      throw error;
     }
   };
 

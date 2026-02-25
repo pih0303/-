@@ -16,9 +16,10 @@ interface NewsletterEditorProps {
   isOpen: boolean;
   onClose: () => void;
   onSave: (post: Post) => void;
+  initialData?: Post | null;
 }
 
-export default function NewsletterEditor({ isOpen, onClose, onSave }: NewsletterEditorProps) {
+export default function NewsletterEditor({ isOpen, onClose, onSave, initialData }: NewsletterEditorProps) {
   const { t } = useLanguage();
   const [formData, setFormData] = useState<Post>({
     date: new Date().toISOString().split('T')[0].replace(/-/g, '.').substring(0, 7),
@@ -29,6 +30,21 @@ export default function NewsletterEditor({ isOpen, onClose, onSave }: Newsletter
     content: ""
   });
 
+  React.useEffect(() => {
+    if (initialData) {
+      setFormData(initialData);
+    } else {
+      setFormData({
+        date: new Date().toISOString().split('T')[0].replace(/-/g, '.').substring(0, 7),
+        title: "",
+        author: "",
+        image: "",
+        link: "",
+        content: ""
+      });
+    }
+  }, [initialData, isOpen]);
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!formData.title || !formData.content) {
@@ -36,14 +52,6 @@ export default function NewsletterEditor({ isOpen, onClose, onSave }: Newsletter
       return;
     }
     onSave(formData);
-    setFormData({
-      date: new Date().toISOString().split('T')[0].replace(/-/g, '.').substring(0, 7),
-      title: "",
-      author: "",
-      image: "",
-      link: "",
-      content: ""
-    });
     onClose();
   };
 
@@ -66,7 +74,7 @@ export default function NewsletterEditor({ isOpen, onClose, onSave }: Newsletter
             className="relative bg-brand-cream w-full max-w-2xl max-h-[90vh] overflow-hidden rounded-[40px] shadow-2xl flex flex-col"
           >
             <div className="p-8 border-b border-brand-olive/10 flex justify-between items-center">
-              <h2 className="text-2xl font-serif">새 소식 작성하기</h2>
+              <h2 className="text-2xl font-serif">{initialData ? "소식 수정하기" : "새 소식 작성하기"}</h2>
               <button onClick={onClose} className="text-brand-ink/50 hover:text-brand-ink">
                 <X size={24} />
               </button>
