@@ -13,7 +13,7 @@ export default function Hero() {
           <span className="inline-block px-4 py-1.5 bg-brand-olive/10 text-brand-olive rounded-full text-xs font-bold uppercase tracking-widest mb-6">
             Migrant Mission Community
           </span>
-          <h1 className="text-6xl md:text-8xl font-serif leading-[0.9] mb-8">
+          <h1 className="text-4xl md:text-6xl font-serif leading-[1.1] mb-8">
             세상과 이주민을 <br />
             <span className="serif-italic text-brand-olive">사랑으로</span> 잇는 다리
           </h1>
