@@ -1,9 +1,11 @@
 import { motion } from "motion/react";
-import { Menu, X } from "lucide-react";
+import { Menu, X, LogIn, LogOut, User as UserIcon } from "lucide-react";
 import { useState } from "react";
+import { useAuth } from "../contexts/AuthContext";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
+  const { user, login, logout } = useAuth();
 
   const navItems = [
     { name: "홈", href: "#home" },
@@ -37,12 +39,49 @@ export default function Navbar() {
               {item.name}
             </a>
           ))}
+          
+          <div className="h-6 w-px bg-brand-olive/20 mx-2" />
+          
+          {user ? (
+            <div className="flex items-center gap-4">
+              <div className="flex items-center gap-2">
+                {user.picture ? (
+                  <img src={user.picture} alt={user.name} className="w-8 h-8 rounded-full border border-brand-olive/20" />
+                ) : (
+                  <div className="w-8 h-8 rounded-full bg-brand-olive/10 flex items-center justify-center text-brand-olive">
+                    <UserIcon size={16} />
+                  </div>
+                )}
+                <span className="text-xs font-medium text-brand-ink/70">{user.name}</span>
+              </div>
+              <button 
+                onClick={logout}
+                className="text-brand-ink/50 hover:text-brand-olive transition-colors"
+                title="로그아웃"
+              >
+                <LogOut size={18} />
+              </button>
+            </div>
+          ) : (
+            <button 
+              onClick={login}
+              className="flex items-center gap-2 text-sm font-medium text-brand-ink/70 hover:text-brand-olive transition-colors"
+            >
+              <LogIn size={18} />
+              관리자 로그인
+            </button>
+          )}
         </div>
 
         {/* Mobile Toggle */}
-        <button className="md:hidden text-brand-ink" onClick={() => setIsOpen(!isOpen)}>
-          {isOpen ? <X size={24} /> : <Menu size={24} />}
-        </button>
+        <div className="flex items-center gap-4 md:hidden">
+          {user && (
+             <img src={user.picture} alt={user.name} className="w-8 h-8 rounded-full border border-brand-olive/20" />
+          )}
+          <button className="text-brand-ink" onClick={() => setIsOpen(!isOpen)}>
+            {isOpen ? <X size={24} /> : <Menu size={24} />}
+          </button>
+        </div>
       </div>
 
       {/* Mobile Nav */}
@@ -64,6 +103,23 @@ export default function Navbar() {
               {item.name}
             </a>
           ))}
+          <div className="border-t border-brand-olive/10 pt-6">
+            {user ? (
+              <button 
+                onClick={() => { logout(); setIsOpen(false); }}
+                className="flex items-center gap-2 text-lg font-serif text-brand-ink/80"
+              >
+                <LogOut size={20} /> 로그아웃
+              </button>
+            ) : (
+              <button 
+                onClick={() => { login(); setIsOpen(false); }}
+                className="flex items-center gap-2 text-lg font-serif text-brand-ink/80"
+              >
+                <LogIn size={20} /> 관리자 로그인
+              </button>
+            )}
+          </div>
         </motion.div>
       )}
     </nav>

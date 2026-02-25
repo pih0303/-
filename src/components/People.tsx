@@ -2,9 +2,11 @@ import { motion } from "motion/react";
 import { Mail, Facebook, Globe, Camera, RotateCcw } from "lucide-react";
 import { useState, useEffect } from "react";
 import { initialPeople, Person } from "../data/people";
+import { useAuth } from "../contexts/AuthContext";
 
 export default function People() {
   const [people, setPeople] = useState<Person[]>(initialPeople);
+  const { user } = useAuth();
 
   // Load from localStorage on mount
   useEffect(() => {
@@ -53,12 +55,14 @@ export default function People() {
               헌신된 사역자들과 함께합니다.
             </p>
           </div>
-          <button 
-            onClick={handleReset}
-            className="flex items-center gap-2 text-xs font-bold text-brand-olive hover:opacity-70 transition-opacity uppercase tracking-widest"
-          >
-            <RotateCcw size={14} /> 사진 초기화
-          </button>
+          {user?.isAdmin && (
+            <button 
+              onClick={handleReset}
+              className="flex items-center gap-2 text-xs font-bold text-brand-olive hover:opacity-70 transition-opacity uppercase tracking-widest"
+            >
+              <RotateCcw size={14} /> 사진 초기화
+            </button>
+          )}
         </div>
 
         <div className="grid md:grid-cols-2 gap-12">
@@ -77,12 +81,14 @@ export default function People() {
                   className="w-full aspect-square object-cover rounded-[32px] shadow-md transition-transform group-hover:scale-[1.02]"
                   referrerPolicy="no-referrer"
                 />
-                <button 
-                  onClick={() => handleUpdateImage(person.id)}
-                  className="absolute inset-0 flex items-center justify-center bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity rounded-[32px] text-white gap-2 text-sm font-medium"
-                >
-                  <Camera size={20} /> 사진 수정
-                </button>
+                {user?.isAdmin && (
+                  <button 
+                    onClick={() => handleUpdateImage(person.id)}
+                    className="absolute inset-0 flex items-center justify-center bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity rounded-[32px] text-white gap-2 text-sm font-medium"
+                  >
+                    <Camera size={20} /> 사진 수정
+                  </button>
+                )}
               </div>
               
               <div className="flex-1">
